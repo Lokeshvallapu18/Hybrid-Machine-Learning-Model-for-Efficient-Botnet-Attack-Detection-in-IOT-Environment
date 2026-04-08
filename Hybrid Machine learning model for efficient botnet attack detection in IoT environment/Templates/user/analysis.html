@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Social Bot Detection - Analysis</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Red+Rose:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+
+    <!-- Libraries -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <style>
+        body { background-color: #f4f7fa; }
+
+        .analysis-container {
+            margin-top: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .charts {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+
+        .box {
+            width: 48%;
+            text-align: center;
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+        }
+
+        .box img {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .stats {
+            margin-top: 20px;
+            font-size: 18px;
+            background: #eef9f0;
+            padding: 12px;
+            border-left: 5px solid #28a745;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Spinner -->
+<div id="spinner"
+     class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" role="status"></div>
+</div>
+
+<!-- Brand Header -->
+<div class="container-fluid bg-primary text-white pt-4 pb-5 d-none d-lg-flex">
+    <div class="container pb-2">
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="/user_home" class="h1 text-white mb-0">
+               Hybrid Machine learning model for efficient botnet attack detection in IoT environment
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Navbar -->
+<div class="container-fluid sticky-top">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white py-lg-0 px-lg-3">
+            <a href="/user_home" class="navbar-brand d-lg-none">
+                <h1 class="text-primary m-0">Social Bot Detection</h1>
+            </a>
+
+            <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav">
+                    <a href="/user_home" class="nav-item nav-link">User Home</a>
+                    <a href="/enter_test_data" class="nav-item nav-link">
+                        Enter Test Data
+                    </a>
+                    <a href="{% url 'user_analysis' %}" class="nav-item nav-link active">Analysis</a>
+                    <a href="/logout" class="nav-item nav-link">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<!-- Analysis Content -->
+<div class="container analysis-container">
+
+    <h2 class="text-center mb-4">Social Bot Detection - Analysis</h2>
+
+    <div class="stats">
+        <b>Human Users:</b> {{ human_count }} &nbsp;&nbsp;&nbsp;
+        <b>Bot Users:</b> {{ bot_count }}
+    </div>
+
+    <div class="charts">
+        <div class="box">
+            <h5 class="mb-3">Bot vs Human (Pie Chart)</h5>
+            <img src="{{ pie_chart }}" alt="Pie Chart">
+        </div>
+
+        <div class="box">
+            <h5 class="mb-3">Bot vs Human (Bar Chart)</h5>
+            <img src="{{ bar_chart }}" alt="Bar Chart">
+        </div>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<div class="container-fluid copyright bg-dark text-white-50 py-4 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="mb-0">
+                    &copy; Hybrid Machine learning model for efficient botnet attack detection in IoT environment.
+                    All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'lib/wow/wow.min.js' %}"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+<script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

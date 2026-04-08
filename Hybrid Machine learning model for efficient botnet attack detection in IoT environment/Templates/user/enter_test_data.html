@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<title>IoT Botnet Attack Detection</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+<style>
+body { background:#f4f7fa; }
+
+.container-form{
+    margin-top:50px;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+h2{text-align:center;margin-bottom:25px;}
+
+.result-box{
+    background:#eef9f0;
+    border-left:5px solid #28a745;
+    padding:15px;
+    margin-top:20px;
+    border-radius:8px;
+}
+
+.error-box{
+    background:#fdecea;
+    border-left:5px solid #dc3545;
+    padding:15px;
+    margin-top:20px;
+    border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="container-fluid bg-primary text-white p-4 text-center">
+<h3>Hybrid Machine Learning Model for Efficient Botnet Attack Detection in IoT Environment</h3>
+</div>
+
+<!-- NAVBAR -->
+<div class="container-fluid bg-light p-2">
+<a href="/user_home" class="btn btn-outline-primary">User Home</a>
+<a href="/enter_test_data" class="btn btn-primary">Detect Botnet</a>
+<a href="{% url 'user_analysis' %}" class="btn btn-outline-primary">Analysis</a>
+<a href="/logout" class="btn btn-danger">Logout</a>
+</div>
+
+<div class="container container-form">
+
+<h2>Enter IoT Network Data</h2>
+
+<form method="POST" action="/enter_test_data/">
+{% csrf_token %}
+
+<!-- DEVICE -->
+<div class="mb-3">
+<label class="form-label">Device ID</label>
+<input type="number" name="device_id" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Packet Size</label>
+<input type="number" step="0.01" name="packet_size" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Packet Rate</label>
+<input type="number" step="0.01" name="packet_rate" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Connection Duration</label>
+<input type="number" step="0.01" name="connection_duration" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Source Port</label>
+<input type="number" name="source_port" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Destination Port</label>
+<input type="number" name="destination_port" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Failed Login Attempts</label>
+<input type="number" name="failed_login_attempts" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Traffic Volume</label>
+<input type="number" step="0.01" name="traffic_volume" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">CPU Usage (%)</label>
+<input type="number" step="0.01" name="cpu_usage" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Memory Usage (%)</label>
+<input type="number" step="0.01" name="memory_usage" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Anomaly Score (0–1)</label>
+<input type="number" step="0.01" min="0" max="1" name="anomaly_score" class="form-control" required>
+</div>
+
+<!-- PROTOCOL TYPE -->
+<div class="mb-3">
+<label class="form-label">Protocol Type</label>
+<select class="form-control" onchange="setProtocol(this.value)">
+<option value="TCP">TCP</option>
+<option value="UDP">UDP</option>
+<option value="ICMP">ICMP</option>
+</select>
+</div>
+
+<!-- Hidden encoded values -->
+<input type="hidden" name="protocol_type_TCP" id="tcp" value="1">
+<input type="hidden" name="protocol_type_UDP" id="udp" value="0">
+<input type="hidden" name="protocol_type_ICMP" id="icmp" value="0">
+
+<button type="submit" class="btn btn-primary w-100">
+Detect Botnet Attack
+</button>
+
+</form>
+
+{% if msg %}
+<div class="result-box mt-4">
+    <h5>{{ msg }}</h5>
+
+    <p><b>Status:</b> {{ bot_status }}</p>
+    <p><b>Risk Level:</b> {{ risk_level }}</p>
+
+    <h6>Security Recommendations:</h6>
+    <ul>
+        {% for rec in recommendations %}
+        <li>{{ rec }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+</div>
+
+<!-- FOOTER -->
+<div class="container-fluid bg-dark text-white text-center p-3 mt-5">
+© Hybrid ML Botnet Detection System
+</div>
+
+<script>
+function setProtocol(value){
+
+document.getElementById("tcp").value = 0;
+document.getElementById("udp").value = 0;
+document.getElementById("icmp").value = 0;
+
+if(value==="TCP") document.getElementById("tcp").value=1;
+if(value==="UDP") document.getElementById("udp").value=1;
+if(value==="ICMP") document.getElementById("icmp").value=1;
+}
+</script>
+
+</body>
+</html>
