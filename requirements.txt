@@ -1,0 +1,7 @@
+python 3.10
+django
+numpy
+pandas
+matplotlib
+scikit-learn
+mysql
